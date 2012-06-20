@@ -10,6 +10,7 @@
 		9A0AFDFB1591162800B284A8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0AFDFA1591162800B284A8 /* Foundation.framework */; };
 		9A0AFDFE1591162800B284A8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0AFDFD1591162800B284A8 /* main.m */; };
 		9A0AFE021591162800B284A8 /* LDAPTest.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9A0AFE011591162800B284A8 /* LDAPTest.1 */; };
+		9A0AFE0915911F8000B284A8 /* libldap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0AFE0815911F8000B284A8 /* libldap.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,8 +30,9 @@
 		9A0AFDF61591162800B284A8 /* LDAPTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LDAPTest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A0AFDFA1591162800B284A8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9A0AFDFD1591162800B284A8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		9A0AFE001591162800B284A8 /* LDAPTest-Prefix.pch */ = {isa = PBXFileReference; path = "LDAPTest-Prefix.pch"; sourceTree = "<group>"; };
+		9A0AFE001591162800B284A8 /* LDAPTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LDAPTest-Prefix.pch"; sourceTree = "<group>"; };
 		9A0AFE011591162800B284A8 /* LDAPTest.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = LDAPTest.1; sourceTree = "<group>"; };
+		9A0AFE0815911F8000B284A8 /* libldap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libldap.dylib; path = usr/lib/libldap.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A0AFE0915911F8000B284A8 /* libldap.dylib in Frameworks */,
 				9A0AFDFB1591162800B284A8 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,6 +68,7 @@
 		9A0AFDF91591162800B284A8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9A0AFE0815911F8000B284A8 /* libldap.dylib */,
 				9A0AFDFA1591162800B284A8 /* Foundation.framework */,
 			);
 			name = Frameworks;
