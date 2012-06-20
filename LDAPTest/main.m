@@ -24,16 +24,16 @@ int main(int argc, const char * argv[])
         scanf("%s", &ldapHost);
         
         // initialize ldap API
-        struct ldap *ld = ldap_open("adlb.auburn.edu", 389);
+        struct ldap *ld = ldap_open(ldapHost, 389);
         
         // attempt a simple bind
-        int bindResult = ldap_simple_bind(ld, "checkdb01@auburn.edu", "webaccess");
+        int bindResult = ldap_simple_bind(ld, ldapUser, ldapPass);
         
         // attempt a search
         
         LDAPMessage *searchResult;
         
-        ldap_search_ext_s(ld, "dc=auburn,dc=edu", LDAP_SCOPE_SUBTREE, "(objectclass=user)", NULL, 0, NULL, NULL, NULL, 20, &searchResult);
+        ldap_search_ext_s(ld, ldapBindDN, LDAP_SCOPE_SUBTREE, "(objectclass=user)", NULL, 0, NULL, NULL, NULL, 20, &searchResult);
         
         LDAPMessage *searchEntries;
         
