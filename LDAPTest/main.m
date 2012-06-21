@@ -15,25 +15,67 @@ int main(int argc, const char * argv[])
 
     @autoreleasepool {
 
-        char *ldapHost;
+        // gather LDAP information from user
+        
+        char ldapHost[80];
         int ldapPort;
-        char *ldapUser;
-        char *ldapPass;
+        char ldapUser[40];
+        char ldapPass[40];
+        char ldapBase[200];
         
         printf("LDAP Host: ");
         scanf("%s", &ldapHost);
         
+        printf("LDAP Port: ");
+        scanf("%d", &ldapPort);
+        
+        printf("Bind User: ");
+        scanf("%s", &ldapUser);
+        
+        printf("Password: ");
+        scanf("%s", &ldapPass);
+        
+        printf("Base DN: ");
+        scanf("%s", &ldapBase);
+        
+        
         // initialize ldap API
-        struct ldap *ld = ldap_open(ldapHost, 389);
+        
+        printf("\nConnecting to %s...\n", ldapHost);
+        
+        struct ldap *ld = ldap_open(ldapHost, ldapPort);
         
         // attempt a simple bind
-        int bindResult = ldap_simple_bind(ld, ldapUser, ldapPass);
+        
+        int bindResult = ldap_simple_bind_s(ld, ldapUser, ldapPass);
+        
+        // check bind result for error
+        
+        if(bindResult != LDAP_SUCCESS) {
+            
+            int ldapResultCode;
+            
+            ldap_get_option(ld, LDAP_OPT_RESULT_CODE, &ldapResultCode);
+            
+            if ( &ldapResultCode != NULL && ldapResultCode != '\0' ) {
+                
+                printf("\nBind Error: %s\n", ldap_err2string(ldapResultCode));
+                
+                return -1;
+                
+            }
+        
+        }
         
         // attempt a search
         
+        printf("\nSearching the Directory...\n");
+        
         LDAPMessage *searchResult;
         
-        ldap_search_ext_s(ld, ldapBindDN, LDAP_SCOPE_SUBTREE, "(objectclass=user)", NULL, 0, NULL, NULL, NULL, 20, &searchResult);
+        ldap_search_ext_s(ld, ldapBase, LDAP_SCOPE_SUBTREE, "(objectclass=user)", NULL, 0, NULL, NULL, NULL, 20, &searchResult);
+        
+        // loop through all returned entries
         
         LDAPMessage *searchEntries;
         
@@ -42,13 +84,14 @@ int main(int argc, const char * argv[])
             char *a;
             char **vals;
             int i;
+            
             BerElement *ber;
+            
+            // loop through all of the current entry's attributes
             
             for ( a = ldap_first_attribute( ld, searchResult, &ber );
                  
                  a != NULL; a = ldap_next_attribute( ld, searchResult, ber ) ) {
-                
-                /* Get and print all values for each attribute. */
                 
                 if (( vals = ldap_get_values( ld, searchResult, a )) != NULL ) {
                     
